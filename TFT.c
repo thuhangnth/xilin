@@ -43,48 +43,47 @@ static XTft TftInstance;
 int initTFT()
 {
 	int Status;
-  XTft_Config *TftConfigPtr;
-  unsigned int *col;
+	XTft_Config *TftConfigPtr;
 
-  unsigned char c;
-
-  /*
-   * Get address of the XTft_Config structure for the given device id.
-   */
-  TftConfigPtr = XTft_LookupConfig(TFT_DEVICE_ID);
-  if (TftConfigPtr == (XTft_Config *)NULL) {
+	/*
+	* Get address of the XTft_Config structure for the given device id.
+	*/
+	TftConfigPtr = XTft_LookupConfig(TFT_DEVICE_ID);
+	if (TftConfigPtr == (XTft_Config *)NULL) 
+	{
     return XST_FAILURE;
-  }
+	}
 
-  /*
-   * Initialize all the TftInstance members and fills the screen with
-   * default background color.
-   */
-  Status = XTft_CfgInitialize(&TftInstance, TftConfigPtr,
+	/*
+	* Initialize all the TftInstance members and fills the screen with
+	* default background color.
+	*/
+	Status = XTft_CfgInitialize(&TftInstance, TftConfigPtr,
       TftConfigPtr->BaseAddress);
-  if (Status != XST_SUCCESS) {
-    return XST_FAILURE;
-  }
+	if (Status != XST_SUCCESS) 
+	{
+		return XST_FAILURE;
+	}
 
-  /*
-   * Wait till Vsync(Video address latch) status bit is set before writing
-   * the frame address into the Address Register. This ensures that the
-   * current frame has been displayed and we can display a new frame of
-   * data. Checking the Vsync state ensures that there is no data flicker
-   * when displaying frames in real time though there is some delay due to
-   * polling.
-   */
-  while (XTft_GetVsyncStatus(&TftInstance) !=
+	/*
+	* Wait till Vsync(Video address latch) status bit is set before writing
+	* the frame address into the Address Register. This ensures that the
+	* current frame has been displayed and we can display a new frame of
+	* data. Checking the Vsync state ensures that there is no data flicker
+	* when displaying frames in real time though there is some delay due to
+	* polling.
+	*/
+	while (XTft_GetVsyncStatus(&TftInstance) !=
       XTFT_IESR_VADDRLATCH_STATUS_MASK);
 
-  /*
-   * Change the Video Memory Base Address from default value to
-   * a valid Memory Address and clear the screen.
-   */
-  XTft_SetFrameBaseAddr(&TftInstance, TFT_FRAME_ADDR);
-  XTft_ClearScreen(&TftInstance);
+	/*
+	* Change the Video Memory Base Address from default value to
+	* a valid Memory Address and clear the screen.
+	*/
+	XTft_SetFrameBaseAddr(&TftInstance, TFT_FRAME_ADDR);
+	XTft_ClearScreen(&TftInstance);
   
-  return XST_SUCCESS
+	return XST_SUCCESS;
 }
 
 void drawCircle(int x0, int y0, int r)
