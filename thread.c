@@ -25,8 +25,10 @@ int main (void) {
 }
 
 void* thread_func_1 () {
+	srand(5);
   while(1) {
     genXY();
+    xil_printf("X is %d, Y is %d",x,y);
     sleep(1);
   }
 }
@@ -34,10 +36,7 @@ void* thread_func_1 () {
 
 void* thread_func_2 () {
 	initTFT();
-	 XTft_SetPos(&TftInstance, 0,0);
-	 XTft_SetPosChar(&TftInstance, 0,0);
-	XTft_SetColor(&TftInstance, 0x00ffffff, 0x00ffffff);
-	XTft_FillScreen(&TftInstance, 0, 0,640,480,0x00ffffff); // white
+	fillScreen();
 	while(1) {
     drawCircle(x,y,radius);
     sleep(1);
