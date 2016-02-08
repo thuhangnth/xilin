@@ -52,7 +52,7 @@ void drawCircle(int x0, int y0, int r)
 	int x = r;
 	int y =0;
 	int re, yChange, xChange, dec;
-	drawHorLine(&TftInstance, y0, x0-r, x0+r)
+	drawHorLine(&TftInstance, y0, x0-r, x0+r,0x000000ff);
 	while (0<=x)
 	{
 		y++;
@@ -63,9 +63,9 @@ void drawCircle(int x0, int y0, int r)
 		if(dec>0)
 		{
 			x--;	
-		{
-		drawHorLine(&TftInstance, y0+y, x0-x, x0+x, 0x000000ff)
-		drawHorLine(&TftInstance, y0-y, x0-x, x0+x, 0x000000ff)
+		}
+		drawHorLine(&TftInstance, y0+y, x0-x, x0+x, 0x000000ff);
+		drawHorLine(&TftInstance, y0-y, x0-x, x0+x, 0x000000ff);
 	}
 	
 }
@@ -73,8 +73,31 @@ void drawCircle(int x0, int y0, int r)
 void drawHorLine(XTft *Tft, int y, int x1, int x2, int col)
 {
 	int i = 0;
-	for (i=x1, i<= x2, i++)
+	for (i=x1; i<= x2; i++)
 	{
-		XTft_SetPixel(Tft, i, y, colour)
+		XTft_SetPixel(Tft, i, y, col);
 	}	
+}
+
+void printXY(char string[])
+{
+	int i = 0;
+	clearScreen();
+	XTft_SetPos(&TftInstance, 10,10);
+	XTft_SetPosChar(&TftInstance, 10,10);
+	XTft_SetColor(&TftInstance, 0x000000, 0x00ffffff);
+
+	for(i=0; i<strlen(string); i++)
+	{
+		if(i==3)
+		{
+			XTft_Write(&TftInstance,',');
+		}
+		XTft_Write(&TftInstance,string[i]);
+	}
+}
+
+void clearScreen()
+{
+	XTft_ClearScreen(&TftInstance);
 }
