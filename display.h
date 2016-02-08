@@ -2,6 +2,7 @@
 
 #include "xtft.h"
 #include "xparameters.h"
+#include <string.h>
 
 /************************** Constant Definitions ****************************/
 /**
@@ -34,7 +35,8 @@
 int initTFT();
 void drawCircle(int x0, int y0, int r);
 void drawHorLine(XTft *Tft, int y, int x1, int x2, int col);
-
+void printXY(char string[]);
+void clearScreen();
 
 /************************** Variable Definitions ****************************/
 
