@@ -101,3 +101,11 @@ void clearScreen()
 {
 	XTft_ClearScreen(&TftInstance);
 }
+
+void fillScreen()
+{
+	XTft_SetPos(&TftInstance, 0,0);
+	XTft_SetPosChar(&TftInstance, 0,0);
+	XTft_SetColor(&TftInstance, 0x00000000, 0x00ffffff);
+	//XTft_FillScreen(&TftInstance, 0, 0,640,480,0x00ffffff); // white
+}
