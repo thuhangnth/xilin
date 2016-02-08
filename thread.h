@@ -12,6 +12,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 #include "display.h"
+#include <stdio.h>
 
 #define radius 7
 volatile int x=0,y=0;
