@@ -53,7 +53,7 @@ void drawCircle(int x0, int y0, int r)
 	int y =0;
 	int re, yChange, xChange, dec;
 	drawHorLine(&TftInstance, y0, x0-r, x0+r,0x000000ff);
-	while (0<=x)
+	while (y<=7)
 	{
 		y++;
 		re =  pow(x,2) + pow(y,2) - pow(r,2);
