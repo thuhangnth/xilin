@@ -26,20 +26,19 @@ int main (void) {
 
 void* thread_func_1 () {
 	srand(5);
-  while(1) {
-    genXY();
-    xil_printf("X is %d, Y is %d",x,y);
-    sleep(1);
-  }
+	while(1) {
+		genXY();
+		//xil_printf("X is %d, Y is %d",x,y);
+		sleep(3000);
+	}
 }
 
 
 void* thread_func_2 () {
-	initTFT();
-	fillScreen();
+
 	while(1) {
     drawCircle(x,y,radius);
-    sleep(1);
+    sleep(3000);
   }
 }
 
@@ -49,6 +48,7 @@ void genXY()
 	x = rand() % 640;
 	y = rand() % 480;
 	parse = parseStr();
+	xil_printf("Parse is %s\r\n",parse);
 	printXY(parse);
 }
 
@@ -60,39 +60,39 @@ char* parseStr()
 		if(x<10) {
 			string[0] = '0';
 			string[1] = '1';
-			string[2] = (char) x;
+			string[2] = (char) (x+48);
 		}
 		else {
 			string[0] = '0';
-			string[1] = (char) x/10;
-			string[2] = (char) x%10;
+			string[1] = (char) (x/10+48);
+			string[2] = (char) (x%10+48);
 		}
 	}
 	else {
-		string[0] = (char) x/100;
+		string[0] = (char) (x/100+48);
 		temp = x%100;
+		string[2] = (char) (temp%10+48);
 		temp /= 10;
-		string[1] = (char) temp;
-		string[2] = (char) temp%10;
+		string[1] = (char) (temp+48);
 	}
 	if (y<100) {
 			if(y<10) {
 				string[3] = '0';
 				string[4] = '1';
-				string[5] = (char) x;
+				string[5] = (char) (y+48);
 			}
 			else {
 				string[3] = '0';
-				string[4] = (char) x/10;
-				string[5] = (char) x%10;
+				string[4] = (char) (y/10+48);
+				string[5] = (char) (y%10+48);
 			}
 		}
 	else {
-		string[3] = (char) y/100;
+		string[3] = (char) (y/100+48);
 		temp = y%100;
+		string[5] = (char) (temp%10+48);
 		temp /= 10;
-		string[4] = (char) temp;
-		string[5] = (char) temp%10;
+		string[4] = (char) (temp+48);
 	}
 	string[6] = '\0';
 	return string;
@@ -104,6 +104,9 @@ void* main_prog(void *arg) {  // This thread is statically created and has prior
 
   print("-- Entering main_prog() --\r\n");
 
+  initTFT();
+  xil_printf("Finish initializing TFT\r\n");
+  fillScreen();
   //init semaphore
   ret = sem_init(&sem,0,1);
   if(ret != 0) {
@@ -126,7 +129,6 @@ void* main_prog(void *arg) {  // This thread is statically created and has prior
   else {
     xil_printf ("Thread 2 launched with ID %d \r\n",tid2);
   }
-
 
   return 0;
 }
