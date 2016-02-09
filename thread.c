@@ -27,18 +27,27 @@ int main (void) {
 void* thread_func_1 () {
 	srand(5);
 	while(1) {
+		sem_wait(&sem);
 		genXY();
+		sem_post(&sem);
 		//xil_printf("X is %d, Y is %d",x,y);
-		sleep(3000);
+		sleep(1000);
 	}
 }
 
 
 void* thread_func_2 () {
-
+	int tempX = x;
+	int tempY = y;
 	while(1) {
-    drawCircle(x,y,radius);
-    sleep(3000);
+		sem_wait(&sem);
+		if(tempX != x && tempY != y) {
+			drawCircle(x,y,radius);
+			tempX = x;
+			tempY = y;
+		}
+		sem_post(&sem);
+		sleep(500);
   }
 }
 
