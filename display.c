@@ -54,7 +54,7 @@ void drawCircle(int x0, int y0, int r)
 	int y =0;
 	int re, yChange, xChange, dec;
 	drawHorLine(&TftInstance, y0, x0-r, x0+r,0x000000ff);
-	while (y<=7)
+	while (y<=x)
 	{
 		y++;
 		re =  pow(x,2) + pow(y,2) - pow(r,2);
@@ -67,6 +67,8 @@ void drawCircle(int x0, int y0, int r)
 		}
 		drawHorLine(&TftInstance, y0+y, x0-x, x0+x, 0x000000ff);
 		drawHorLine(&TftInstance, y0-y, x0-x, x0+x, 0x000000ff);
+		drawHorLine(&TftInstance, y0+x, x0-y, x0+y, 0x000000ff);
+		drawHorLine(&TftInstance, y0-x, x0-y, x0+y, 0x000000ff);
 	}
 	
 }
