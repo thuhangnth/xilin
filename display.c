@@ -44,6 +44,14 @@ int initTFT()
 	XTft_SetFrameBaseAddr(&TftInstance, TFT_FRAME_ADDR);
 	XTft_ClearScreen(&TftInstance);
 
+	XTft_SetPos(&TftInstance, 0,0);
+	XTft_SetPosChar(&TftInstance, 0,0);
+
+	XTft_SetColor(&TftInstance, 0x00000000, 0x00ffffff);
+
+	XTft_FillScreen(&TftInstance, 0, 0,639,479,0x00ffffff); // white
+
+
   
 	return XST_SUCCESS;
 }
@@ -70,7 +78,7 @@ void drawCircle(int x0, int y0, int r)
 		drawHorLine(&TftInstance, y0+x, x0-y, x0+y, 0x000000ff);
 		drawHorLine(&TftInstance, y0-x, x0-y, x0+y, 0x000000ff);
 	}
-	
+	xil_printf("5\r\n");
 }
 
 void drawHorLine(XTft *Tft, int y, int x1, int x2, int col)
@@ -88,7 +96,7 @@ void printXY(char string[])
 	clearScreen();
 	XTft_SetPos(&TftInstance, 0,0);
 	XTft_SetPosChar(&TftInstance, 0,0);
-	XTft_SetColor(&TftInstance, 0x000000, 0x00ffffff);
+	//XTft_SetColor(&TftInstance, 0x000000, 0x00ffffff);
 
 	for(i=0; i<strlen(string); i++)
 	{
