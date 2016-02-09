@@ -43,6 +43,7 @@ int initTFT()
 	*/
 	XTft_SetFrameBaseAddr(&TftInstance, TFT_FRAME_ADDR);
 	XTft_ClearScreen(&TftInstance);
+
   
 	return XST_SUCCESS;
 }
@@ -62,7 +63,7 @@ void drawCircle(int x0, int y0, int r)
 		dec = 2*(re+yChange)+xChange;
 		if(dec>0)
 		{
-			x--;	
+			x -= 1;
 		}
 		drawHorLine(&TftInstance, y0+y, x0-x, x0+x, 0x000000ff);
 		drawHorLine(&TftInstance, y0-y, x0-x, x0+x, 0x000000ff);
@@ -83,8 +84,8 @@ void printXY(char string[])
 {
 	int i = 0;
 	clearScreen();
-	XTft_SetPos(&TftInstance, 10,10);
-	XTft_SetPosChar(&TftInstance, 10,10);
+	XTft_SetPos(&TftInstance, 0,0);
+	XTft_SetPosChar(&TftInstance, 0,0);
 	XTft_SetColor(&TftInstance, 0x000000, 0x00ffffff);
 
 	for(i=0; i<strlen(string); i++)
@@ -104,8 +105,12 @@ void clearScreen()
 
 void fillScreen()
 {
+	xil_printf("1\r\n");
 	XTft_SetPos(&TftInstance, 0,0);
 	XTft_SetPosChar(&TftInstance, 0,0);
+	xil_printf("2\r\n");
 	XTft_SetColor(&TftInstance, 0x00000000, 0x00ffffff);
-	//XTft_FillScreen(&TftInstance, 0, 0,640,480,0x00ffffff); // white
+	xil_printf("3\r\n");
+	XTft_FillScreen(&TftInstance, 0, 0,639,479,0x00ffffff); // white
+	xil_printf("4\r\n");
 }
