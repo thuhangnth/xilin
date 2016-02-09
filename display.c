@@ -84,10 +84,21 @@ void drawCircle(int x0, int y0, int r)
 void drawHorLine(XTft *Tft, int y, int x1, int x2, int col)
 {
 	int i = 0;
-	for (i=x1; i<= x2; i++)
+	if (x1<0)
 	{
-		XTft_SetPixel(Tft, i, y, col);
-	}	
+		x1=0;
+	}
+	if (x2>639)
+	{
+		x2=639;
+	}
+	if (0<=y<=479)
+	{
+		for (i=x1; i<= x2; i++)
+		{
+			XTft_SetPixel(Tft, i, y, col);
+		}
+	}
 }
 
 void printXY(char string[])
