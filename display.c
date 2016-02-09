@@ -92,7 +92,7 @@ void drawHorLine(XTft *Tft, int y, int x1, int x2, int col)
 	{
 		x2=639;
 	}
-	if (0<=y<=479)
+	if (y>=0 && y<=479)
 	{
 		for (i=x1; i<= x2; i++)
 		{
