@@ -78,7 +78,6 @@ void drawCircle(int x0, int y0, int r)
 		drawHorLine(&TftInstance, y0+x, x0-y, x0+y, 0x000000ff);
 		drawHorLine(&TftInstance, y0-x, x0-y, x0+y, 0x000000ff);
 	}
-	xil_printf("5\r\n");
 }
 
 void drawHorLine(XTft *Tft, int y, int x1, int x2, int col)
@@ -105,9 +104,7 @@ void printXY(char string[])
 {
 	int i = 0;
 	clearScreen();
-	XTft_SetPos(&TftInstance, 0,0);
 	XTft_SetPosChar(&TftInstance, 0,0);
-	//XTft_SetColor(&TftInstance, 0x000000, 0x00ffffff);
 
 	for(i=0; i<strlen(string); i++)
 	{
@@ -126,12 +123,5 @@ void clearScreen()
 
 void fillScreen()
 {
-	xil_printf("1\r\n");
-	XTft_SetPos(&TftInstance, 0,0);
-	XTft_SetPosChar(&TftInstance, 0,0);
-	xil_printf("2\r\n");
 	XTft_SetColor(&TftInstance, 0x00000000, 0x00ffffff);
-	xil_printf("3\r\n");
-	XTft_FillScreen(&TftInstance, 0, 0,639,479,0x00ffffff); // white
-	xil_printf("4\r\n");
 }
