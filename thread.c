@@ -27,27 +27,17 @@ int main (void) {
 void* thread_func_1 () {
 	srand(5);
 	while(1) {
-		sem_wait(&sem);
 		genXY();
 		sem_post(&sem);
-		//xil_printf("X is %d, Y is %d",x,y);
 		sleep(1000);
 	}
 }
 
 
 void* thread_func_2 () {
-	int tempX = x;
-	int tempY = y;
 	while(1) {
 		sem_wait(&sem);
-		if(tempX != x && tempY != y) {
-			drawCircle(x,y,radius);
-			tempX = x;
-			tempY = y;
-		}
-		sem_post(&sem);
-		sleep(500);
+		drawCircle(x,y,radius);
   }
 }
 
@@ -57,7 +47,6 @@ void genXY()
 	x = rand() % 640;
 	y = rand() % 480;
 	parse = parseStr();
-	xil_printf("Parse is %s\r\n",parse);
 	printXY(parse);
 }
 
@@ -117,7 +106,7 @@ void* main_prog(void *arg) {  // This thread is statically created and has prior
   xil_printf("Finish initializing TFT\r\n");
   fillScreen();
   //init semaphore
-  ret = sem_init(&sem,0,1);
+  ret = sem_init(&sem,0,0);
   if(ret != 0) {
 	  xil_printf("ERROR (%d) initializing semaphore...\r\n", ret);
   }
